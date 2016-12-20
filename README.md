@@ -1,6 +1,8 @@
 
 # react-native-alerts
 
+# Comming soon
+
 ## Getting started
 
 `$ npm install react-native-alerts --save`

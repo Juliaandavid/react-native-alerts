@@ -1,16 +1,18 @@
 
 {
   "name": "react-native-alerts",
-  "version": "1.0.0",
+  "version": "0.0.7",
   "description": "",
   "main": "index.js",
   "keywords": [
-    "react-native"
+    "react-native",
+    "android",
+    "ios"
   ],
-  "author": "Julian Izquierdo",
+  "nativePackage": true,
+  "author": "Julian Izquierdo juliandizquierdog@gmail.com",
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.29.0",
-    "react-native-windows": "^0.29.0"
+    "react-native": "0.x"
   }
 }
