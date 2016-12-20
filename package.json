@@ -1,18 +1,22 @@
 
 {
   "name": "react-native-alerts",
-  "version": "0.0.7",
-  "description": "",
-  "main": "index.js",
+  "description": "Alerts to React Native Android and iOS",
+  "version": "0.0.9",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juliaandavid/react-native-alerts.git"
+  },
   "keywords": [
     "react-native",
+    "react-component",
     "android",
     "ios"
   ],
   "nativePackage": true,
-  "author": "Julian Izquierdo juliandizquierdog@gmail.com",
-  "license": "MIT",
-  "peerDependencies": {
-    "react-native": "0.x"
-  }
+  "author": {
+    "name": "Julian Izquierdo",
+    "email": "juliandizquierdog@gmail.com"
+  },
+  "license": "MIT"
 }
