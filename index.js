@@ -2,18 +2,33 @@ import React from 'react';
 import { NativeModules } from 'react-native';
 
 class RNAlerts {
-	/**
-	 * Allow to show native alert.
-	 * options:
-	 * 1. message
-	 * 2. title, message
-	 * 3. title, message, buttonName
-	 */
-  static alert(options, cb) {
-    return new Promise((resolve, reject) => {
-      NativeModules.RNAlerts.alert(options.message, () => {
-        cb();
-      });
-    })
+
+  static testParameters (options, cb) {
+      NativeModules.RNAlerts.testParameters(options, cb);
   }
+
+  // Allow to show native alert. {options: title, message, button}
+  static alert (options, cb) {
+      NativeModules.RNAlerts.alert(options, cb);
+  }
+
+  // Allow to show native alert. {options: title, message, button}
+  static alert (options, cb) {
+      NativeModules.RNAlerts.alert(options, cb);
+  }
+
+  static confirm (options, cb) {
+	  //NativeModules.RNAlerts.confirm(options, cb);
+  }
+
+  static prompt (options, cb) {
+	  //NativeModules.RNAlerts.prompt(options, cb);
+  }
+
+  static login (options, cb) {
+	  //NativeModules.RNAlerts.login(options, cb);
+  }
+
 }
+
+module.exports = RNAlerts;
