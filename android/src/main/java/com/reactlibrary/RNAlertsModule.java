@@ -111,15 +111,15 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
             if(input.getText().toString().matches(""))
-              callback.invoke();
+              callback.invoke(null);
             else
-              callback.invoke("_"+input.getText().toString());
+              callback.invoke(input.getText().toString());
         }
     });
     String buttonCancel = (options.hasKey("cancel")) ? options.getString("cancel") : "Cancel";
     builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
-            callback.invoke();
+            callback.invoke(null);
         }
     });
     AlertDialog ad = builder.create();
@@ -127,8 +127,52 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void login(ReadableMap options, final Callback successCB, final Callback failureCB ) {
+  public void login(ReadableMap options, final Callback callback) {
+		builder = new AlertDialog.Builder(getCurrentActivity());
 
+    if(options.hasKey("title"))
+      builder.setTitle(options.getString("title"));
+    if(options.hasKey("message"))
+      builder.setMessage(options.getString("message"));
+
+		LinearLayout layout = new LinearLayout(this.reactContext);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		final EditText input1 = new EditText(this.reactContext);
+		final EditText input2 = new EditText(this.reactContext);
+		
+		input1.setTextColor(Color.BLACK);
+    input1.setHintTextColor(Color.LTGRAY);
+		input2.setTextColor(Color.BLACK);
+    input2.setHintTextColor(Color.LTGRAY);
+
+		input1.setInputType( (options.hasKey("userInputType")) ? options.getInt("userInputType") : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+		input2.setInputType( (options.hasKey("passwordInputType")) ? options.getInt("passwordInputType") : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+		if(options.hasKey("userPlaceholder"))
+      input1.setHint(options.getString("userPlaceholder"));
+		if(options.hasKey("passwordPlaceholder"))
+      input2.setHint(options.getString("passwordPlaceholder"));
+
+		layout.addView(input1);
+		layout.addView(input2);
+		builder.setView(layout);
+
+		String buttonAccept = (options.hasKey("accept")) ? options.getString("accept") : "Accept";
+    builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+						String user = (input1.getText().toString().matches("")) ? null : input1.getText().toString();
+						String password = (input2.getText().toString().matches("")) ? null : input2.getText().toString();
+						callback.invoke(user, password);
+        }
+    });
+    String buttonCancel = (options.hasKey("cancel")) ? options.getString("cancel") : "Cancel";
+    builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            callback.invoke(null, null);
+        }
+    });
+    AlertDialog ad = builder.create();
+    ad.show();
   }
 
 }

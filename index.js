@@ -56,14 +56,16 @@ class Alerts {
    * Props: {
    *    title (optional)
    *    message (optional)
-   *    placeholder (optional)
-   *    type (optional)
+   *    userInputType
+   *    userPlaceholder
+   *    passwordInputType
+   *    passwordPlaceholder
    *    accept (optional)
    *    cancel (optional)
    * }
    */
-  static login (options, successCB, failureCB) {
-	  NativeModules.RNAlerts.login(options, successCB, failureCB);
+  static login (options, cb) {
+	  NativeModules.RNAlerts.login(options, cb);
   }
 
 }
