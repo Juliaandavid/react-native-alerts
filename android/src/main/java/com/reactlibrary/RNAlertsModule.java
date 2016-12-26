@@ -9,6 +9,7 @@ import com.facebook.react.bridge.Callback;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.graphics.Color;
 import android.text.InputType;
 import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
@@ -48,7 +49,7 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void alert(ReadableMap options, final Callback cb) {
+  public void alert(ReadableMap options, final Callback callback) {
     builder = new AlertDialog.Builder(getCurrentActivity());
     if(options.hasKey("title"))
       builder.setTitle(options.getString("title"));
@@ -58,7 +59,7 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     String buttonName = (options.hasKey("button")) ? options.getString("button") : "OK";
     builder.setPositiveButton(buttonName, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
-            cb.invoke();
+            callback.invoke();
         }
     });
     AlertDialog ad = builder.create();
@@ -66,7 +67,7 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void confirm(ReadableMap options, final Callback successCB, final Callback failureCB ) {
+  public void confirm(ReadableMap options, final Callback callback) {
     builder = new AlertDialog.Builder(getCurrentActivity());
     if(options.hasKey("title"))
       builder.setTitle(options.getString("title"));
@@ -76,13 +77,13 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     String buttonAccept = (options.hasKey("accept")) ? options.getString("accept") : "Accept";
     builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
-            successCB.invoke();
+            callback.invoke(true);
         }
     });
     String buttonCancel = (options.hasKey("cancel")) ? options.getString("cancel") : "Cancel";
     builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
-            failureCB.invoke();
+            callback.invoke(false);
         }
     });
     AlertDialog ad = builder.create();
@@ -90,31 +91,35 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void prompt(ReadableMap options, final Callback successCB, final Callback failureCB ) {
+  public void prompt(ReadableMap options, final Callback callback) {
     builder = new AlertDialog.Builder(getCurrentActivity());
-    EditText input = new EditText(this.reactContext);
 
     if(options.hasKey("title"))
       builder.setTitle(options.getString("title"));
     if(options.hasKey("message"))
       builder.setMessage(options.getString("message"));
-    if(options.hasKey("inputtype"))
-      input.setInputType(options.getInt("inputtype"));
-    if(options.hasKey("placeholder"))
-      input.setHint(options.getString("message"));
 
+    final EditText input = new EditText(this.reactContext);
+    input.setTextColor(Color.BLACK);
+    input.setHintTextColor(Color.LTGRAY);
+    input.setInputType( (options.hasKey("inputtype")) ? options.getInt("inputtype") : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+    if(options.hasKey("placeholder"))
+      input.setHint(options.getString("placeholder"));
     builder.setView(input);
 
     String buttonAccept = (options.hasKey("accept")) ? options.getString("accept") : "Accept";
     builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
-            successCB.invoke();
+            if(input.getText().toString().matches(""))
+              callback.invoke();
+            else
+              callback.invoke("_"+input.getText().toString());
         }
     });
     String buttonCancel = (options.hasKey("cancel")) ? options.getString("cancel") : "Cancel";
     builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
-            failureCB.invoke();
+            callback.invoke();
         }
     });
     AlertDialog ad = builder.create();

@@ -1,9 +1,15 @@
 import React from 'react';
 import { NativeModules } from 'react-native';
 
-console.log(NativeModules.RNAlerts);
-
 class Alerts {
+
+  static inputTypes = {
+    TEXT: NativeModules.RNAlerts.INPUT_TEXT,
+    EMAIL: NativeModules.RNAlerts.INPUT_EMAIL,
+    NUMBER: NativeModules.RNAlerts.INPUT_NUMBER,
+    PASSWORD: NativeModules.RNAlerts.INPUT_PASSWORD,
+    PHONE: NativeModules.RNAlerts.INPUT_PHONE
+  }
 
   /**
    * Allows to show native alert
@@ -26,8 +32,8 @@ class Alerts {
    *    cancel (optional)
    * }
    */
-  static confirm (options, successCB, failureCB) {
-	  NativeModules.RNAlerts.confirm(options, successCB, failureCB);
+  static confirm (options, cb) {
+	  NativeModules.RNAlerts.confirm(options, cb);
   }
 
   /**
@@ -41,7 +47,7 @@ class Alerts {
    *    cancel (optional)
    * }
    */
-  static prompt (options, successCB, failureCB) {
+  static prompt (options, cb) {
 	  NativeModules.RNAlerts.prompt(options, cb);
   }
 
@@ -57,7 +63,7 @@ class Alerts {
    * }
    */
   static login (options, successCB, failureCB) {
-	  NativeModules.RNAlerts.login(options, cb);
+	  NativeModules.RNAlerts.login(options, successCB, failureCB);
   }
 
 }

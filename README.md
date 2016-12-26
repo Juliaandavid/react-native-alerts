@@ -1,7 +1,7 @@
 
 # react-native-alerts
 
-# Comming soon
+# Comming soon (This is in development)
 
 ## Getting started
 
@@ -37,10 +37,55 @@
   	```
 
 ## Usage
-```javascript
-import RNAlerts from 'react-native-alerts';
 
-// TODO: What do with the module?
-RNAlerts;
+After install the library, you can import it to use.
+
+```javascript
+import Alerts from 'react-native-alerts';
 ```
-  
+
+## Methods
+
+### Alert
+
+Open single alert. (All parameters are optionals)
+
+| Name  | Type     | Description |
+| :---- | :------: | :--- |
+| title | string | Title of alert |
+| message | string | Message of alert |
+| button | string | Alert button text |
+
+```javascript
+Alerts.alert({
+	title: 'Title',
+	message: 'This is a message',
+	button: 'Sure!'
+}, () => {
+	//Event fired when user click on button
+});
+
+Alerts;
+```
+
+### Confirm
+
+Open single confirm alert. (All parameters are optionals)
+
+| Name  | Type     | Description |
+| :---- | :------: | :--- |
+| title | string | Title of alert |
+| message | string | Message of alert |
+| accept | string | Alert button accept text |
+| cancel | string | Alert button cancel text |
+
+```javascript
+Alerts.confirm({
+	title: 'Title',
+	message: 'Are you sure?',
+	accept: 'YES',
+	cancel: 'NO'
+}, (res) => {
+	// res: return true if accept button is preset, else return false
+});
+```
