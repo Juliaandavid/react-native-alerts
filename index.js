@@ -3,7 +3,9 @@ import { NativeModules } from 'react-native';
 
 class Alerts {
 
-  // Allow to show native alert. {props: title, message, button}
+  /**
+   * Allows show native alerts
+   */
   static alert (options, cb) {
       NativeModules.RNAlerts.alert(options, cb);
   }

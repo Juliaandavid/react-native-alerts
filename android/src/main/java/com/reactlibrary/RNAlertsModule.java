@@ -65,4 +65,28 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     ad.show();
   }
 
+  @ReactMethod
+  public void confirm(ReadableMap options, final Callback successCB, final Callback failureCB ) {
+    builder = new AlertDialog.Builder(getCurrentActivity());
+    if(options.hasKey("title"))
+      builder.setTitle(options.getString("title"));
+    if(options.hasKey("message"))
+      builder.setMessage(options.getString("message"));
+    
+    String buttonAccept = (options.hasKey("buttonAccept")) ? options.getString("buttonAccept") : "Accept";
+    builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            successCB.invoke();
+        }
+    });
+    String buttonCancel = (options.hasKey("buttonCancel")) ? options.getString("buttonCancel") : "Cancel";
+    builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            failureCB.invoke();
+        }
+    });
+    AlertDialog ad = builder.create();
+    ad.show();
+  }
+
 }
