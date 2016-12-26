@@ -1,6 +1,8 @@
 import React from 'react';
 import { NativeModules } from 'react-native';
 
+console.log(NativeModules.RNAlerts);
+
 class Alerts {
 
   /**
@@ -20,20 +22,42 @@ class Alerts {
    * Props: {
    *    title (optional)
    *    message (optional)
-   *    buttonAccept (optional)
-   *    buttonCancel (optional)
+   *    accept (optional)
+   *    cancel (optional)
    * }
    */
-  static confirm (options, cb) {
-	  NativeModules.RNAlerts.confirm(options, cb);
+  static confirm (options, successCB, failureCB) {
+	  NativeModules.RNAlerts.confirm(options, successCB, failureCB);
   }
 
-  static prompt (options, cb) {
-	  //NativeModules.RNAlerts.prompt(options, cb);
+  /**
+   * Allows to show native alert confirm
+   * Props: {
+   *    title (optional)
+   *    message (optional)
+   *    inputtype (optional)
+   *    placeholder (optional)
+   *    accept (optional)
+   *    cancel (optional)
+   * }
+   */
+  static prompt (options, successCB, failureCB) {
+	  NativeModules.RNAlerts.prompt(options, cb);
   }
 
-  static login (options, cb) {
-	  //NativeModules.RNAlerts.login(options, cb);
+  /**
+   * Allows to show native alert confirm
+   * Props: {
+   *    title (optional)
+   *    message (optional)
+   *    placeholder (optional)
+   *    type (optional)
+   *    accept (optional)
+   *    cancel (optional)
+   * }
+   */
+  static login (options, successCB, failureCB) {
+	  NativeModules.RNAlerts.login(options, cb);
   }
 
 }

@@ -73,13 +73,13 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     if(options.hasKey("message"))
       builder.setMessage(options.getString("message"));
     
-    String buttonAccept = (options.hasKey("buttonAccept")) ? options.getString("buttonAccept") : "Accept";
+    String buttonAccept = (options.hasKey("accept")) ? options.getString("accept") : "Accept";
     builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
             successCB.invoke();
         }
     });
-    String buttonCancel = (options.hasKey("buttonCancel")) ? options.getString("buttonCancel") : "Cancel";
+    String buttonCancel = (options.hasKey("cancel")) ? options.getString("cancel") : "Cancel";
     builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int id) {
             failureCB.invoke();
@@ -87,6 +87,43 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     });
     AlertDialog ad = builder.create();
     ad.show();
+  }
+
+  @ReactMethod
+  public void prompt(ReadableMap options, final Callback successCB, final Callback failureCB ) {
+    builder = new AlertDialog.Builder(getCurrentActivity());
+    EditText input = new EditText(this.reactContext);
+
+    if(options.hasKey("title"))
+      builder.setTitle(options.getString("title"));
+    if(options.hasKey("message"))
+      builder.setMessage(options.getString("message"));
+    if(options.hasKey("inputtype"))
+      input.setInputType(options.getInt("inputtype"));
+    if(options.hasKey("placeholder"))
+      input.setHint(options.getString("message"));
+
+    builder.setView(input);
+
+    String buttonAccept = (options.hasKey("accept")) ? options.getString("accept") : "Accept";
+    builder.setPositiveButton(buttonAccept, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            successCB.invoke();
+        }
+    });
+    String buttonCancel = (options.hasKey("cancel")) ? options.getString("cancel") : "Cancel";
+    builder.setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            failureCB.invoke();
+        }
+    });
+    AlertDialog ad = builder.create();
+    ad.show();
+  }
+
+  @ReactMethod
+  public void login(ReadableMap options, final Callback successCB, final Callback failureCB ) {
+
   }
 
 }
