@@ -7,11 +7,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.Callback;
 
-import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeMap;
-import com.facebook.react.bridge.ReadableType;
-
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.text.InputType;
@@ -50,41 +45,6 @@ public class RNAlertsModule extends ReactContextBaseJavaModule {
     constants.put("INPUT_PHONE", InputType.TYPE_CLASS_PHONE);
 
     return constants;
-  }
-
-  @ReactMethod
-  public void testParameters(ReadableMap readableMap, final Callback cb) {
-    if (readableMap == null) {
-      cb.invoke("null");
-    }
-
-    ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
-
-    WritableMap bundle = new WritableNativeMap();
-
-    while (iterator.hasNextKey()) {
-      String key = iterator.nextKey();
-      ReadableType readableType = readableMap.getType(key);
-      switch (readableType) {
-        case Null:
-          bundle.putString(key, null);
-          break;
-        case Boolean:
-          bundle.putBoolean(key, readableMap.getBoolean(key));
-          break;
-        case Number:
-          // Can be int or double.
-          bundle.putDouble(key, readableMap.getDouble(key));
-          break;
-        case String:
-          bundle.putString(key, readableMap.getString(key));
-          break;
-        default:
-          throw new IllegalArgumentException("Could not convert object with key: " + key + ".");
-      }
-    }
-
-    cb.invoke(bundle);
   }
 
   @ReactMethod

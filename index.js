@@ -1,13 +1,9 @@
 import React from 'react';
 import { NativeModules } from 'react-native';
 
-class RNAlerts {
+class Alerts {
 
-  static testParameters (options, cb) {
-      NativeModules.RNAlerts.testParameters(options, cb);
-  }
-
-  // Allow to show native alert. {options: title, message, button}
+  // Allow to show native alert. {props: title, message, button}
   static alert (options, cb) {
       NativeModules.RNAlerts.alert(options, cb);
   }
@@ -26,4 +22,4 @@ class RNAlerts {
 
 }
 
-module.exports = RNAlerts;
+module.exports = Alerts;
