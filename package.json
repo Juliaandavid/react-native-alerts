@@ -2,7 +2,7 @@
 {
   "name": "react-native-alerts",
   "description": "Alerts to React Native Android and iOS",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Juliaandavid/react-native-alerts.git"

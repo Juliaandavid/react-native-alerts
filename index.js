@@ -12,11 +12,6 @@ class RNAlerts {
       NativeModules.RNAlerts.alert(options, cb);
   }
 
-  // Allow to show native alert. {options: title, message, button}
-  static alert (options, cb) {
-      NativeModules.RNAlerts.alert(options, cb);
-  }
-
   static confirm (options, cb) {
 	  //NativeModules.RNAlerts.confirm(options, cb);
   }
