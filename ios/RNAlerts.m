@@ -1,18 +1,10 @@
 
 #import "RNAlerts.h"
 
-@implementation RNAlerts
+@interface RCT_EXTERN_MODULE(RNAlerts, NSObject)
 
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_get_main_queue();
-}
-RCT_EXPORT_MODULE()
+//RCT_EXTERN_METHOD(addEvent:(NSString *)name location:(NSString *)location date:(nonnull NSNumber *)date)
 
-RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
-{
-    RCTLogInfo(@"Pretending to create an event %@ at %@", name, location);
-}
+RCT_EXTERN_METHOD(alert:(NSString *)name, findEvents:(RCTResponseSenderBlock)callback )
 
 @end
-  
